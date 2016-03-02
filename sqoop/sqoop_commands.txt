@@ -1,0 +1,12 @@
+Sqoop: customer Import
+=======================
+sqoop import --connect jdbc:mysql://localhost:3306/sqoop --username root -P --split-by id --columns id,name --table customer  --target-dir /user/cloudera/ingest/raw/customers --fields-terminated-by "," --hive-import --create-hive-table --hive-table sqoop_workspace.customers
+
+Sqoop: orders Import
+=======================
+sqoop import --connect jdbc:mysql://localhost:3306/sqoop --username root --password cloudera --split-by dummy_col --columns dummy_col --table dummy --target-dir /user/cloudera/ingest/raw/dummy --fields-terminated-by "," --hive-import --create-hive-table --hive-table sqoop_workspace.dummy
+
+Sqoop: dummy Import
+=======================
+sqoop import --connect jdbc:mysql://localhost:3306/sqoop --username root --password cloudera --split-by order_id --columns  order_id,data,customer_id,amount --table orders --target-dir /user/cloudera/ingest/raw/orders --fields-terminated-by "," --hive-import --create-hive-table --hive-table sqoop_workspace.orders
+
