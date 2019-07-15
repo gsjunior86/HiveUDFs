@@ -41,7 +41,7 @@ public class ExplodeHotelResults extends GenericUDTF{
 		        fieldOIs);
 	}
 	
-	  private transient final Object[] forwardMapObj = new Object[2];
+	  private transient final Object[] forwardMapObj = new Object[1];
 
 	  @Override
 	  public void process(Object[] o) throws HiveException {
@@ -54,7 +54,6 @@ public class ExplodeHotelResults extends GenericUDTF{
 	      }
 	      for (Entry<?,?> r : map.entrySet()) {
 	        forwardMapObj[0] = r.getValue();
-	        forwardMapObj[1] = r.getValue();
 	        forward(forwardMapObj);
 	      }
 	      break;
