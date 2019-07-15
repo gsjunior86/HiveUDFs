@@ -31,7 +31,7 @@ public class ExplodeHotelResults extends GenericUDTF{
 		case MAP:
 		      inputOI = args[0];
 		      fieldNames.add("hotel_results");
-		      fieldOIs.add(((MapObjectInspector)inputOI).getMapKeyObjectInspector());
+		      fieldOIs.add(((MapObjectInspector)inputOI).getMapValueObjectInspector());
 		      break;
 		default:
 		      throw new UDFArgumentException("explode() takes an array or a map as a parameter");
