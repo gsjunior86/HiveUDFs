@@ -30,18 +30,20 @@ public class ExplodeHotelResults extends GenericUDTF{
 		switch (args[0].getCategory()) {
 		case MAP:
 		      inputOI = args[0];
-		      fieldNames.add("hotel_results");
+		      fieldNames.add("hotel_id");
+		      fieldNames.add("advertisers");
+		      fieldOIs.add(((MapObjectInspector)inputOI).getMapKeyObjectInspector());
 		      fieldOIs.add(((MapObjectInspector)inputOI).getMapValueObjectInspector());
 		      break;
 		default:
-		      throw new UDFArgumentException("explode() takes an array or a map as a parameter");
+		      throw new UDFArgumentException("hotelRes() takes a map as a parameter");
 		}
 		
 		return ObjectInspectorFactory.getStandardStructObjectInspector(fieldNames,
 		        fieldOIs);
 	}
 	
-	  private transient final Object[] forwardMapObj = new Object[1];
+	  private transient final Object[] forwardMapObj = new Object[2];
 
 	  @Override
 	  public void process(Object[] o) throws HiveException {
@@ -53,9 +55,10 @@ public class ExplodeHotelResults extends GenericUDTF{
 	        return;
 	      }
 	      for (Entry<?,?> r : map.entrySet()) {
-	        forwardMapObj[0] = r.getValue();
-	        forward(forwardMapObj);
-	      }
+	          forwardMapObj[0] = r.getKey();
+	          forwardMapObj[1] = r.getValue();
+	          forward(forwardMapObj);
+	        }
 	      break;
 	    default:
 	      throw new TaskExecutionException("explodeHotelResults() can only operate on a map");
